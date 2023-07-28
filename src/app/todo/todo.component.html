@@ -1,24 +1,44 @@
-<div class="container1">
+<h1>TODO LIST</h1>
 <div class="container">
-<div><h1>TODO LIST</h1></div>
 
-<div class="todobox"> 
-      <label>TODO:</label>
-      <input type="text" [(ngModel)]="todolist"> 
-      <button class="add" (click)="display()" [disabled]="!todolist">Add</button>  
-      <div class="validator" *ngIf="!todolist"><small>*Enter a Task</small></div>
-</div>
-  
-    <div class="content"  *ngIf="storelist">   
-     <table>
-      <tr *ngFor="let item of storelist,let i = index">
-        <td>{{ item }} </td>
-        <td><button class="edit"  (click)="edit(i)">Edit</button></td> 
-       <td> <button   (click)="delete(i)">delete</button></td>
-      </tr>
+  <div class="input">
+    <label>Todo:</label>
+    <input pInputText [(ngModel)]="newTask" [disabled]="editIndex !== null" />
+    <p-button label="Submit" (click)="addTask()" [disabled]="!newTask" class="p-button-raised"></p-button>
+  </div>
+
+  <div class="output" *ngIf="tasks.length > 0">
+    <table>
+      <thead>
+        <tr>
+          <th style="width: 300px;">Task</th> 
+          <th style="width: 100px;">Edit</th> 
+          <th style="width: 100px;">Delete</th> 
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let task of tasks; let i = index">
+          <td *ngIf="editIndex !== i">
+            {{ task }}
+          </td>
+          <td *ngIf="editIndex === i">
+            <input pInputText [(ngModel)]="editedTask" />
+          </td>
+          <td>
+            <div *ngIf="editIndex !== i">
+              <p-button label="Edit" (click)="Edit(i)" class="p-button-raised"></p-button>
+            </div>
+            <div *ngIf="editIndex === i">
+              <p-button label="Update" (click)="SubmitEdit(i)" class="p-button-raised"></p-button>
+            </div>
+          </td>
+          <td>
+            <p-button label="Delete" (click)="Delete(i)" class="p-button-raised"></p-button>
+          </td>
+        </tr>
+      </tbody>
     </table>
-    
-    </div>
+  </div>
 
-</div>
+  <p *ngIf="tasks.length === 0">No tasks yet.</p>
 </div>

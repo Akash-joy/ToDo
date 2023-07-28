@@ -6,21 +6,40 @@ import { Component } from '@angular/core';
   styleUrls: ['./todo.component.scss']
 })
 export class TodoComponent {
-  storelist: string[] = [];
-  todolist: string = '';
+  newTask: string = '';
+  tasks: string[] = [];
+  editIndex: number | null = null;
+  editedTask: string = ''; // Variable to store the edited value
 
-  display() {
-    this.storelist.push(this.todolist); 
-    this.todolist = ''; 
-   
+  addTask() {
+    if (this.newTask.trim() !== '') {
+      const existingIndex = this.tasks.indexOf(this.newTask);
+
+      if (existingIndex !== -1) {
+        this.tasks[existingIndex] = this.newTask;
+      } else {
+        this.tasks.push(this.newTask);
+      }
+
+      this.newTask = '';
+      this.editIndex = null; // Reset editIndex to avoid confusion when adding a new task
+    }
   }
-  delete(index:number){
-    this.storelist.splice(index, 1);
+
+  Edit(index: number) {
+    this.editIndex = index;
+    this.editedTask = this.tasks[index]; // Store the original task value to the editedTask variable
   }
-  edit(editvalue:number){
-  
-    console.log(editvalue)
-    this.todolist=this.storelist[editvalue];
-    this.delete(editvalue)
+
+  SubmitEdit(index: number) {
+    if (this.editedTask.trim() !== '') {
+      this.tasks[index] = this.editedTask; // Update the task value in the array
+    }
+    this.editIndex = null;
+    this.editedTask = ''; // Clear the editedTask variable
+  }
+
+  Delete(index: number) {
+    this.tasks.splice(index, 1);
   }
 }
