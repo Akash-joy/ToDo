@@ -1,0 +1,24 @@
+<div class="container1">
+<div class="container">
+<div><h1>TODO LIST</h1></div>
+
+<div class="todobox"> 
+      <label>TODO:</label>
+      <input type="text" [(ngModel)]="todolist"> 
+      <button class="add" (click)="display()" [disabled]="!todolist">Add</button>  
+      <div class="validator" *ngIf="!todolist"><small>*Enter a Task</small></div>
+</div>
+  
+    <div class="content"  *ngIf="storelist">   
+     <table>
+      <tr *ngFor="let item of storelist,let i = index">
+        <td>{{ item }} </td>
+        <td><button class="edit"  (click)="edit(i)">Edit</button></td> 
+       <td> <button   (click)="delete(i)">delete</button></td>
+      </tr>
+    </table>
+    
+    </div>
+
+</div>
+</div>
