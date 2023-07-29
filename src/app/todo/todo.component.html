@@ -1,24 +1,32 @@
+<div class="all">
 <h1>TODO LIST</h1>
-<div class="container">
+
 
   <div class="input">
-    <label>Todo:</label>
-    <input pInputText [(ngModel)]="newTask" [disabled]="editIndex !== null" />
-    <p-button label="Submit" (click)="addTask()" [disabled]="!newTask" class="p-button-raised"></p-button>
+  
+    <input pInputText [(ngModel)]="newTask" [disabled]="editIndex !== null" placeholder="Enter a task " />
+    <p-button label="Submit" (click)="addTask()"[disabled]="!newTask"  class="p-button-raised"></p-button>
   </div>
-
+  
+  <div class="container">
   <div class="output" *ngIf="tasks.length > 0">
     <table>
       <thead>
         <tr>
-          <th style="width: 300px;">Task</th> 
+          <th style="width: 100px;">Date</th> 
+          <th style="width: 700px;">Task</th> 
           <th style="width: 100px;">Edit</th> 
           <th style="width: 100px;">Delete</th> 
         </tr>
       </thead>
-      <tbody>
-        <tr *ngFor="let task of tasks; let i = index">
-          <td *ngIf="editIndex !== i">
+      <tbody >
+        <tr *ngFor="let task of tasks; let i = index" >
+          <td *ngIf="editIndex !== i">{{ currentDate | date: 'dd-MM-yyyy' }}</td>
+          <td *ngIf="editIndex === i">
+            <input pInputText [(ngModel)]="currentDate | date: 'dd-MM-yyyy'" />
+          </td>
+
+          <td *ngIf="editIndex !== i"  class="task-cell">
             {{ task }}
           </td>
           <td *ngIf="editIndex === i">
@@ -40,5 +48,6 @@
     </table>
   </div>
 
-  <p *ngIf="tasks.length === 0">No tasks yet.</p>
+  
+</div>
 </div>
