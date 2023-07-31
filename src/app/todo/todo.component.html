@@ -1,53 +1,59 @@
+<!-- todo.component.html -->
 <div class="all">
-<h1>TODO LIST</h1>
-
+  <h1>TODO LIST</h1>
 
   <div class="input">
-  
-    <input pInputText [(ngModel)]="newTask" [disabled]="editIndex !== null" placeholder="Enter a task " />
-    <p-button label="Submit" (click)="addTask()"[disabled]="!newTask"  class="p-button-raised"></p-button>
+    <input pInputText [(ngModel)]="newTask" [disabled]="editIndex !== null" placeholder="Enter a task" />
+    <p-button label="Submit" (click)="addTask()" [disabled]="!newTask" class="p-button-raised"></p-button>
   </div>
-  
+
   <div class="container">
-  <div class="output" *ngIf="tasks.length > 0">
-    <table>
-      <thead>
-        <tr>
-          <th style="width: 100px;">Date</th> 
-          <th style="width: 700px;">Task</th> 
-          <th style="width: 100px;">Edit</th> 
-          <th style="width: 100px;">Delete</th> 
-        </tr>
-      </thead>
-      <tbody >
-        <tr *ngFor="let task of tasks; let i = index" >
-          <td *ngIf="editIndex !== i">{{ currentDate | date: 'dd-MM-yyyy' }}</td>
-          <td *ngIf="editIndex === i">
-            <input pInputText [(ngModel)]="currentDate | date: 'dd-MM-yyyy'" />
-          </td>
+    <div class="output" *ngIf="tasks.length > 0">
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 200px;">Date</th>
+            <th style="width: 100px;" >Time</th>           
+             <th style="width: 700px;">Task</th>
+            <th style="width: 100px;">Edit</th>
+            <th style="width: 100px;">Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let task of tasks; let i = index">
 
-          <td *ngIf="editIndex !== i"  class="task-cell">
-            {{ task }}
-          </td>
-          <td *ngIf="editIndex === i">
-            <input pInputText [(ngModel)]="editedTask" />
-          </td>
-          <td>
-            <div *ngIf="editIndex !== i">
-              <p-button label="Edit" (click)="Edit(i)" class="p-button-raised"></p-button>
-            </div>
-            <div *ngIf="editIndex === i">
-              <p-button label="Update" (click)="SubmitEdit(i)" class="p-button-raised"></p-button>
-            </div>
-          </td>
-          <td>
-            <p-button label="Delete" (click)="Delete(i)" class="p-button-raised"></p-button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+            <td *ngIf="editIndex !== i ">{{ task.taskDate }}</td>
+            <td *ngIf="editIndex === i">
+              <input pInputText [(ngModel)]="task.taskDate" />
+            </td>
+
+            <td *ngIf="editIndex !== i ">{{ task.taskTime }}</td>
+            <td *ngIf="editIndex === i">
+              <input pInputText [(ngModel)]="task.taskTime" />
+            </td>
+
+            <td *ngIf="editIndex !== i" class="task-cell">
+              {{ task.taskName }}
+            </td>
+            <td *ngIf="editIndex === i">
+              <input pInputText [(ngModel)]="editedTask" />
+            </td>
+
+            <td>
+              <div *ngIf="editIndex !== i">
+                <p-button label="Edit" (click)="Edit(i)" class="p-button-raised"></p-button>
+              </div>
+              <div *ngIf="editIndex === i">
+                <p-button label="Update" (click)="SubmitEdit(i)" class="p-button-raised"></p-button>
+              </div>
+            </td>
+
+            <td>
+              <p-button label="Delete" (click)="Delete(i)" class="p-button-raised"></p-button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
-
-  
-</div>
 </div>
