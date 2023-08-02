@@ -1,4 +1,3 @@
-
 import { Component } from '@angular/core';
 
 @Component({
@@ -8,30 +7,22 @@ import { Component } from '@angular/core';
 })
 export class TodoComponent {
   newTask: string = '';
-  currentDate: Date;
-  tasks: { taskName: string; taskDate: string; taskTime: string }[] = [];
+  tasks: { taskName: string, taskDate: Date, taskTime: Date }[] = [];
   editIndex: number | null = null;
   editedTask: string = '';
-  currentDateOnly: string = '';
-  time: string = '';
-
-  constructor() {
-    this.currentDate = new Date();
-    this.currentDateOnly = this.getCurrentDateOnly();
-    this.time = this.getCurrentTime();
-  }
+  editedDate: Date = new Date();
+  editedTime: Date = new Date();
 
   addTask() {
-    const trimmedTask = this.newTask.trim();
-    if (trimmedTask !== '') {
-      const existingIndex = this.tasks.findIndex((task) => task.taskName === trimmedTask);
+    if (this.newTask !== '') {
+      const existingIndex = this.tasks.findIndex(task => task.taskName === this.newTask);
       if (existingIndex !== -1) {
-        this.tasks[existingIndex].taskName = trimmedTask;
+        this.tasks[existingIndex].taskName = this.newTask;
       } else {
         this.tasks.push({
-          taskName: trimmedTask,
-          taskDate: this.currentDateOnly,
-          taskTime: this.time,
+          taskName: this.newTask,
+          taskDate: new Date(this.editedDate), 
+          taskTime: new Date(this.editedTime),
         });
       }
 
@@ -43,36 +34,22 @@ export class TodoComponent {
   Edit(index: number) {
     this.editIndex = index;
     this.editedTask = this.tasks[index].taskName;
+    this.editedDate = new Date(this.tasks[index].taskDate);
+    this.editedTime = new Date(this.tasks[index].taskTime); 
   }
 
   SubmitEdit(index: number) {
-    if (this.editedTask.trim() !== '') {
+    if (this.editedTask.length > 0) {
       this.tasks[index].taskName = this.editedTask;
-      
     }
+    this.tasks[index].taskDate = new Date(this.editedDate); 
+    this.tasks[index].taskTime = new Date(this.editedTime); 
+
     this.editIndex = null;
     this.editedTask = '';
   }
 
   Delete(index: number) {
     this.tasks.splice(index, 1);
-  }
-
-  getCurrentDateOnly(): string {
-    const year = this.currentDate.getFullYear();
-    const month = this.addLeadingZero(this.currentDate.getMonth() + 1);
-    const day = this.addLeadingZero(this.currentDate.getDate());
-    return `${year}-${month}-${day}`;
-  }
-
-  addLeadingZero(value: number): string {
-    return value < 10 ? `0${value}` : `${value}`;
-  }
-
-  getCurrentTime() {
-    const hours = this.addLeadingZero(this.currentDate.getHours());
-    const minutes = this.addLeadingZero(this.currentDate.getMinutes());
-    const seconds = this.addLeadingZero(this.currentDate.getSeconds());
-    return `${hours}:${minutes}:${seconds}`;
   }
 }

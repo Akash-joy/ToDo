@@ -8,7 +8,7 @@ import {InputTextModule} from 'primeng-lts/inputtext';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {ButtonModule} from 'primeng-lts/button';
 import {ListboxModule} from 'primeng-lts/listbox';
-
+import {CalendarModule} from 'primeng-lts/calendar';
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,7 +24,8 @@ import {ListboxModule} from 'primeng-lts/listbox';
     InputTextModule,
     BrowserAnimationsModule,
     ButtonModule,
-    ListboxModule
+    ListboxModule,
+    CalendarModule
   
   ],
   providers: [],
