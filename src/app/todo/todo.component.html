@@ -4,7 +4,7 @@
 
   <div class="input">
     <input pInputText [(ngModel)]="newTask" [disabled]="editIndex !== null" placeholder="Enter a task" />
-    <p-button label="Submit" (click)="addTask()" [disabled]="!newTask" class="p-button-raised"></p-button>
+    <p-button label="Add" (click)="addTask()" [disabled]="!newTask" icon="pi pi-plus-circle" iconPos="right"></p-button >
   </div>
 
   <div class="container">
@@ -50,15 +50,15 @@
 
             <td>
               <div *ngIf="editIndex !== i">
-                <p-button label="Edit" (click)="Edit(i)" class="p-button-raised"></p-button>
+                <p-button label="Edit" (click)="Edit(i)" icon="pi pi-pencil" iconPos="right" class="p-button-raised"></p-button>
               </div>
               <div *ngIf="editIndex === i">
-                <p-button label="Update" (click)="SubmitEdit(i)" class="p-button-raised"></p-button>
+                <p-button label="Update" (click)="SubmitEdit(i)" icon="pi pi-save" iconPos="right" class="p-button-raised"></p-button>
               </div>
             </td>
 
             <td>
-              <p-button label="Delete" (click)="Delete(i)" class="p-button-raised"></p-button>
+              <p-button label="Delete" (click)="Delete(i)" class="p-button-raised" icon="pi pi-trash" iconPos="right"></p-button>
             </td>
           </tr>
         </tbody>
